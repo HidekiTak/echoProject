@@ -1,4 +1,4 @@
-package common
+package outcommon
 
 import (
 	"errors"
@@ -11,6 +11,7 @@ type MultiError interface {
 	Error() error
 	DoMulti(callbacks ...func() error) error
 	Do(callback func() error)
+	Append(err error)
 }
 
 func FactoryMultiError() MultiError {
@@ -57,5 +58,9 @@ func (e *multiErrorImpl) Do(callback func() error) {
 	if err == nil {
 		return
 	}
+	e.errors = append(e.errors, err)
+}
+
+func (e *multiErrorImpl) Append(err error) {
 	e.errors = append(e.errors, err)
 }

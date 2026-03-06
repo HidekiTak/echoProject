@@ -1,4 +1,4 @@
-package main
+package server_a
 
 import (
 	"context"
@@ -15,9 +15,8 @@ func main() {
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 
-	// bind modules
 	checker, err := outcommon.MultiBind(
-		e, nil,
+		e,
 		map[string]func(c *echo.Echo, root string) (outcommon.PreCondChecker, error){
 			"/module_a": moduleA.Bind,
 			"/module_b": moduleB.Bind,

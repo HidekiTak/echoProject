@@ -1,22 +1,23 @@
 package moduleB
 
 import (
-	"common"
 	"fmt"
 	"moduleB/funcA"
 	"moduleB/funcB"
 	"net/http"
+	"outcommon"
 
 	"github.com/labstack/echo/v5"
 )
 
-func Bind(e *echo.Echo, root string) error {
+func Bind(e *echo.Echo, root string) (outcommon.PreCondChecker, error) {
 	e.GET(root, helloWorld)
 	e.GET(root+"/:id", helloWorldId)
 
-	return common.MultiBind(
-		e,
-		map[string]func(e *echo.Echo, root string) error{
+	// bind children
+	return outcommon.MultiBind(
+		e, nil,
+		map[string]func(e *echo.Echo, root string) (outcommon.PreCondChecker, error){
 			root + "/func_a": funcA.Bind,
 			root + "/func_b": funcB.Bind,
 		},

@@ -3,14 +3,15 @@ package funcB
 import (
 	"fmt"
 	"net/http"
+	"outcommon"
 
 	"github.com/labstack/echo/v5"
 )
 
-func Bind(c *echo.Echo, root string) error {
+func Bind(c *echo.Echo, root string) (outcommon.PreCondChecker, error) {
 	c.GET(root, helloWorld)
 	c.GET(root+"/:id", helloWorldId)
-	return nil
+	return nil, nil
 }
 
 func helloWorld(c *echo.Context) error {

@@ -2,7 +2,14 @@ go 1.26
 
 use (
 	.
-	outside/common
+	inside/asyncjobs
+	inside/aws
+	inside/cloud
+	inside/incommon
+	inside/structure
+	lambda/lambda_a
 	outside/moduleA
 	outside/moduleB
+	outside/outcommon
+	server/server_a
 )
